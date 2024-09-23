@@ -1,0 +1,21 @@
+
+public class AccountTriggerHandler {
+    public static void UpdateContactWebsite(List<Account> newList , Map<Id, Account> oldmap){
+       Map<id,String> accMap = new Map<id,String>();
+        for(Account acc : newList){
+            if(acc.Website != oldmap.get(acc.Id).Website){
+                accMap.put(acc.Id, acc.Website);
+              }
+        }
+        if(accMap.keyset().size()>0){
+            list<contact> updatecontactList = new list<contact>();
+            for(Contact con : [SELECT Id, AccountId, Website__c From Contact Where AccountId IN : accMap.keyset()]){
+                con.Website__c = accMap.get(con.AccountId);
+                updatecontactList.add(con);
+            }
+            if(updatecontactList.size()>0){
+                update updatecontactList;
+            }
+        }
+    }
+}
