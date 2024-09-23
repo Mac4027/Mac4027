@@ -1,0 +1,22 @@
+public class AccountTriggerHandler {
+    public static void createNContact(List<Account> newList){
+        if(newList.size()>0){
+            list<Contact> ContactCreateList = new list<contact>(); 
+            for(Account acc : newList){
+                if(acc.NumberofLocations__c != null){
+                    for(integer i =1; i<= acc.NumberofLocations__c; i++){
+                        Contact con = new Contact();
+                        con.LastName = 'Test' + ' '+ i;
+                        con.Phone= '123456';
+                        con.AccountId= acc.id;
+                        ContactCreateList.add(con);
+                    }
+                }
+            } 
+            if(!ContactCreateList.isEmpty()){
+                insert ContactCreateList;
+            }
+        }
+      }
+    }
+ 
